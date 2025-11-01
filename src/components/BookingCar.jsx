@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
+import API from "../utils/axios";
 
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -73,8 +74,8 @@ const BookingCar = ({ id, pricePerDay }) => {
         order_id: data.order.id,
         handler: async function (response) {
           try {
-            await axios.post(
-              "http://localhost:8000/api/payments/verify-payment",
+            await API.post(
+              "/payments/verify-payment",
               {
                 ...response,
                 bookingId: data.booking._id,
