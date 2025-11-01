@@ -65,6 +65,21 @@ const Navbar = ({ setLoggedIn }) => {
           </Link>
         ))}
 
+        <div className="flex md:hidden">
+          <Link
+                    to="my-bookings"
+                    className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300"
+                  >
+                    My Bookings
+                  </Link>
+                  <button
+                    className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+        </div>
+
         <div>
           {currentUser ? (
             <div className="text-white">
@@ -79,15 +94,12 @@ const Navbar = ({ setLoggedIn }) => {
                   onMouseLeave={() => setDropdown(false)}
                 />
                 <div
-                  className={`absolute py-2 right-0 w-48 bg-white mt-1 rounded-md shadow-xl flex-col border ${
+                  className={`md:absolute py-2 right-0 w-48 bg-white mt-1 rounded-md shadow-xl flex-col border ${
                     dropdown ? "flex" : "hidden"
                   }`}
                   onMouseEnter={() => setDropdown(true)}
                   onMouseLeave={() => setDropdown(false)}
                 >
-                  {/* <Link to="" className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300">
-                    Profile
-                  </Link> */}
                   <Link
                     to="my-bookings"
                     className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300"
