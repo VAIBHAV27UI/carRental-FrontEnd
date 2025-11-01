@@ -52,8 +52,8 @@ const BookingCar = ({ id, pricePerDay }) => {
       };
 
       // Create Razorpay order & backend booking
-      const { data } = await axios.post(
-        "http://localhost:8000/api/payments/create-order",
+      const { data } = await API.post(
+        "/payments/create-order",
         { amount, bookingData }
       );
 
