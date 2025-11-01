@@ -3,6 +3,7 @@ import * as Yup from "yup";
 // import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
 import API from "../utils/owner/axios";
+import SuccefullyPopUp from "./SuccefullyPopUp";
 
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -19,8 +20,7 @@ const BookingSchema = Yup.object().shape({
 const BookingCar = ({ id, pricePerDay }) => {
   console.log(pricePerDay);
 
-    const [isSuccess, setIsSuccess] = useState(false);
-
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handlePayment = async (values) => {
     try {
@@ -37,7 +37,6 @@ const BookingCar = ({ id, pricePerDay }) => {
       const diffTime = returnDate - pickupDate;
       const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-
       const amount = totalDays * pricePerDay * 100;
 
       const bookingData = {
@@ -51,10 +50,10 @@ const BookingCar = ({ id, pricePerDay }) => {
       };
 
       // Create Razorpay order & backend booking
-      const { data } = await API.post(
-        "/payments/create-order",
-        { amount, bookingData }
-      );
+      const { data } = await API.post("/payments/create-order", {
+        amount,
+        bookingData,
+      });
 
       if (!data.success) {
         console.error("Booking creation failed:", data.message);
@@ -73,15 +72,15 @@ const BookingCar = ({ id, pricePerDay }) => {
         order_id: data.order.id,
         handler: async function (response) {
           try {
-            await API.post(
-              "/payments/verify-payment",
-              {
-                ...response,
-                bookingId: data.booking._id,
-                method: "upi",
-              }
-            );
-            alert("Payment Successful! Booking Confirmed.");
+            await API.post("/payments/verify-payment", {
+              ...response,
+              bookingId: data.booking._id,
+              method: "upi",
+            });
+            // alert("Payment Successful! Booking Confirmed.");
+            setIsSuccess(true); 
+            resetForm();
+            
           } catch (err) {
             console.error(
               "Payment verification failed:",
@@ -98,11 +97,10 @@ const BookingCar = ({ id, pricePerDay }) => {
         theme: { color: "#04DBC0" },
       };
 
-      setIsSuccess(true)
+      setIsSuccess(true);
       const rzp = new window.Razorpay(options);
       rzp.open();
-      resetForm()
-      
+      resetForm();
     } catch (error) {
       console.error(
         "Error in handlePayment:",
@@ -116,9 +114,12 @@ const BookingCar = ({ id, pricePerDay }) => {
   //   return <SuccefullyPopUp />; // Show success component
   // }
 
-
   return (
     <>
+
+          {isSuccess && <SuccefullyPopUp onClose={() => setIsSuccess(false)} />}
+
+
       <div className="border-1 border-black rounded-sm px-4 py-4">
         <Formik
           initialValues={{
