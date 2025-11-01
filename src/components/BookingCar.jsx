@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import SuccefullyPopUp from "./SuccefullyPopUp";
+// import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
 import API from "../utils/axios";
 
