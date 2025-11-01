@@ -3,6 +3,7 @@ import * as Yup from "yup";
 // import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
 import API from "../utils/owner/axios";
+import SuccefullyPopUp from "./SuccefullyPopUp";
 
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -17,7 +18,7 @@ const BookingSchema = Yup.object().shape({
   dropoffLocation: Yup.string().required("Required"),
 });
 const BookingCar = ({ id, pricePerDay }) => {
-  console.log(pricePerDay);
+  // console.log(pricePerDay);
 
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -76,7 +77,7 @@ const BookingCar = ({ id, pricePerDay }) => {
               bookingId: data.booking._id,
               method: "upi",
             });
-            alert("Payment Successful! Booking Confirmed.");
+            // alert("Payment Successful! Booking Confirmed.");
             setIsSuccess(true);
             resetForm();
           } catch (err) {
@@ -128,7 +129,7 @@ const BookingCar = ({ id, pricePerDay }) => {
             returnDate: "",
           }}
           validationSchema={BookingSchema}
-          onSubmit={(values, { resetForm }) => handlePayment(values)}
+          onSubmit={(values) => handlePayment(values)}
         >
           <Form>
             <div className="basis-1/2 mb-5">
