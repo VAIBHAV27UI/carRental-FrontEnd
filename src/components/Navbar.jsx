@@ -65,15 +65,15 @@ const Navbar = ({ setLoggedIn }) => {
           </Link>
         ))}
 
-        <div className="flex flex-wrap md:hidden">
+        <div className="grid flex-wrap md:hidden">
           <Link
                     to="my-bookings"
-                    className="w-full px-4 px py-2 flex flex-1  text-white hover:bg-gray-100 transition-all duration-300"
+                    className="w-full px-8 px py-2 flex flex-1  text-white hover:bg-gray-100 transition-all duration-300"
                   >
                     My Bookings
                   </Link>
                   <button
-                    className="w-full px-4 py-2 flex flex-1  text-white hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
+                    className="w-full px-8 py-2 flex flex-1  text-white hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
                     onClick={handleLogout}
                   >
                     Log Out
