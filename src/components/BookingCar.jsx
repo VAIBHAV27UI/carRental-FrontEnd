@@ -18,8 +18,6 @@ const BookingSchema = Yup.object().shape({
   dropoffLocation: Yup.string().required("Required"),
 });
 const BookingCar = ({ id, pricePerDay }) => {
-  // console.log(pricePerDay);
-
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handlePayment = async (values, resetForm) => {
@@ -77,14 +75,9 @@ const BookingCar = ({ id, pricePerDay }) => {
               bookingId: data.booking._id,
               method: "upi",
             });
-            // alert("Payment Successful! Booking Confirmed.");
             setIsSuccess(true);
             resetForm();
           } catch (err) {
-            console.error(
-              "Payment verification failed:",
-              err.response?.data || err.message
-            );
             alert("Payment verification failed!");
           }
         },
@@ -129,7 +122,7 @@ const BookingCar = ({ id, pricePerDay }) => {
             returnDate: "",
           }}
           validationSchema={BookingSchema}
-          onSubmit={(values) => handlePayment(values)}
+          onSubmit={(values, { resetForm }) => handlePayment(values, resetForm)}
         >
           <Form>
             <div className="basis-1/2 mb-5">
