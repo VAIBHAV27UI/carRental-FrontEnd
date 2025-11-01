@@ -98,7 +98,6 @@ const BookingCar = ({ id, pricePerDay }) => {
   return (
     <>
       {isSuccess && <SuccefullyPopUp status="Payment Successful!" bookStatus="Your car has been booked successfully. 🎉" onClose={() => setIsSuccess(false)} />}
-      {!isSuccess && <SuccefullyPopUp status="Somthing went wrong" bookStatus="Your car has been booked unsuccessfully." onClose={() => setIsSuccess(false)} />}
 
       <div className="border-1 border-black rounded-sm px-4 py-4">
         <Formik
