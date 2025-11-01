@@ -12,7 +12,6 @@ const SuccefullyPopUp = ({ onClose, status, bookStatus }) => {
         <CheckCircle2 className="text-green-500 mx-auto mb-4" size={60} />
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {status} 
-          //Payment Successful!
         </h2>
         <p className="text-gray-600 mb-6">
           {bookStatus}

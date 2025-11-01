@@ -49,7 +49,7 @@ const CarDetailsCard = (props) => {
         </div>
 
         <div className="grid md:grid-cols-6 gap-5 mt-2">
-          <div className="flex justify-between col-span-1 text-[12px]">
+          <div className="flex justify-between md:col-span-1 text-[12px]">
             <div className="text-center">
               <p className="mb-2">
                 <FaUser />
@@ -70,7 +70,7 @@ const CarDetailsCard = (props) => {
             </div>
           </div>
 
-          <div className="col-span-3">
+          <div className="md:col-span-3">
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-2 list-disc md:pl-5">
               <li className="flex items-center gap-2 text-[15px]">
                 <IoMdCheckmark className="text-green-600" />
