@@ -38,8 +38,8 @@ const SingleCarDetails = (props) => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-4 gap-5 w-full">
-        <div className="col-span-3">
+      <div className="grid md:grid-cols-4 gap-5 w-full">
+        <div className="md:col-span-3">
           <div>
             <h1 className="text-4xl font-bold">{title}</h1>
             <span className="text-xs font-bold text-gray-800">
@@ -110,7 +110,7 @@ const SingleCarDetails = (props) => {
 
         {/* right side */}
 
-        <div>
+        <div className="md:col-span-1">
           <BookingCar id={id} pricePerDay={pricePerDay} />
         </div>
       </div>
