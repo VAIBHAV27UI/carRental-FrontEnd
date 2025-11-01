@@ -3,7 +3,6 @@ import * as Yup from "yup";
 // import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
 import API from "../utils/owner/axios";
-import SuccefullyPopUp from "./SuccefullyPopUp";
 
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -22,7 +21,7 @@ const BookingCar = ({ id, pricePerDay }) => {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handlePayment = async (values) => {
+  const handlePayment = async (values, resetForm) => {
     try {
       const userRaw = localStorage.getItem("user");
       const user = userRaw ? JSON.parse(userRaw) : null;
@@ -77,10 +76,9 @@ const BookingCar = ({ id, pricePerDay }) => {
               bookingId: data.booking._id,
               method: "upi",
             });
-            // alert("Payment Successful! Booking Confirmed.");
-            setIsSuccess(true); 
+            alert("Payment Successful! Booking Confirmed.");
+            setIsSuccess(true);
             resetForm();
-            
           } catch (err) {
             console.error(
               "Payment verification failed:",
@@ -116,9 +114,7 @@ const BookingCar = ({ id, pricePerDay }) => {
 
   return (
     <>
-
-          {isSuccess && <SuccefullyPopUp onClose={() => setIsSuccess(false)} />}
-
+      {isSuccess && <SuccefullyPopUp onClose={() => setIsSuccess(false)} />}
 
       <div className="border-1 border-black rounded-sm px-4 py-4">
         <Formik
