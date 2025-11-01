@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 // import SuccefullyPopUp from "./SuccefullyPopUp";
 import { useState } from "react";
-import API from "../utils/axios";
+import API from "../utils/owner/axios";
 
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
