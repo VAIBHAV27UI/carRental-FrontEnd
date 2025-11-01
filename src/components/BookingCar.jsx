@@ -19,169 +19,86 @@ const BookingSchema = Yup.object().shape({
 const BookingCar = ({ id, pricePerDay }) => {
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // const handlePayment = async (values, resetForm) => {
-  //   try {
-  //     const userRaw = localStorage.getItem("user");
-  //     const user = userRaw ? JSON.parse(userRaw) : null;
-
-  //     if (!user || !user.id) {
-  //       alert("Please log in before making a booking.");
-  //       return;
-  //     }
-
-  //     const pickupDate = new Date(values.pickupDate);
-  //     const returnDate = new Date(values.returnDate);
-  //     const diffTime = returnDate - pickupDate;
-  //     const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-  //     const amount = totalDays * pricePerDay * 100;
-
-  //     const bookingData = {
-  //       vehicle: id,
-  //       user: user.id,
-  //       totalPrice: amount / 100,
-  //       pickupDate: values.pickupDate,
-  //       returnDate: values.returnDate,
-  //       pickupLocation: values.pickupLocation,
-  //       dropoffLocation: values.dropoffLocation,
-  //     };
-
-  //     // Create Razorpay order & backend booking
-  //     const { data } = await API.post("/payments/create-order", {
-  //       amount,
-  //       bookingData,
-  //     });
-
-  //     if (!data.success) {
-  //       console.error("Booking creation failed:", data.message);
-  //       alert("Booking failed: " + (data.message || "Unknown error"));
-  //       return;
-  //     }
-
-  //     const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
-
-  //     const options = {
-  //       key: RAZORPAY_KEY,
-  //       amount: data.order.amount,
-  //       currency: "INR",
-  //       name: "Car Rental Service",
-  //       description: "Car Booking Payment",
-  //       order_id: data.order.id,
-  //       handler: async function (response) {
-  //         try {
-  //           await API.post("/payments/verify-payment", {
-  //             ...response,
-  //             bookingId: data.booking._id,
-  //             method: "upi",
-  //           });
-  //           setIsSuccess(true);
-  //           resetForm();
-  //         } catch (err) {
-  //           alert("Payment verification failed!");
-  //         }
-  //       },
-  //       prefill: {
-  //         name: values.fullName,
-  //         email: values.email,
-  //         contact: values.phone,
-  //       },
-  //       theme: { color: "#04DBC0" },
-  //     };
-
-  //     setIsSuccess(true);
-  //     const rzp = new window.Razorpay(options);
-  //     rzp.open();
-  //     resetForm();
-  //   } catch (error) {
-  //     console.error(
-  //       "Error in handlePayment:",
-  //       error.response?.data || error.message
-  //     );
-  //     alert("Something went wrong while creating the booking or payment.");
-  //   }
-  // };
-
-
   const handlePayment = async (values, resetForm) => {
-  try {
-    const userRaw = localStorage.getItem("user");
-    const user = userRaw ? JSON.parse(userRaw) : null;
+    try {
+      const userRaw = localStorage.getItem("user");
+      const user = userRaw ? JSON.parse(userRaw) : null;
 
-    if (!user || !user.id) {
-      alert("Please log in before making a booking.");
-      return;
+      if (!user || !user.id) {
+        alert("Please log in before making a booking.");
+        return;
+      }
+
+      const pickupDate = new Date(values.pickupDate);
+      const returnDate = new Date(values.returnDate);
+      const diffTime = returnDate - pickupDate;
+      const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      const amount = totalDays * pricePerDay * 100;
+
+      const bookingData = {
+        vehicle: id,
+        user: user.id,
+        totalPrice: amount / 100,
+        pickupDate: values.pickupDate,
+        returnDate: values.returnDate,
+        pickupLocation: values.pickupLocation,
+        dropoffLocation: values.dropoffLocation,
+      };
+
+      const { data } = await API.post("/payments/create-order", {
+        amount,
+        bookingData,
+      });
+
+      if (!data?.success || !data?.order?.id) {
+        console.error("Booking creation failed:", data);
+        alert("Booking failed: " + (data?.message || "Unknown error"));
+        return;
+      }
+
+      const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
+
+      const options = {
+        key: RAZORPAY_KEY,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Car Rental Service",
+        description: "Car Booking Payment",
+        order_id: data.order.id,
+        handler: async function (response) {
+          try {
+            await API.post("/payments/verify-payment", {
+              ...response,
+              bookingId: data.booking._id,
+              method: "upi",
+            });
+            setIsSuccess(true);
+            resetForm();
+          } catch (err) {
+            console.error("Payment verification error:", err);
+            alert("Payment verification failed!");
+          }
+        },
+        prefill: {
+          name: values.fullName,
+          email: values.email,
+          contact: values.phone,
+        },
+        theme: { color: "#04DBC0" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Error in handlePayment:", error.response?.data || error);
+      alert("Something went wrong while creating the booking or payment.");
     }
-
-    const pickupDate = new Date(values.pickupDate);
-    const returnDate = new Date(values.returnDate);
-    const diffTime = returnDate - pickupDate;
-    const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    const amount = totalDays * pricePerDay * 100;
-
-    const bookingData = {
-      vehicle: id,
-      user: user.id,
-      totalPrice: amount / 100,
-      pickupDate: values.pickupDate,
-      returnDate: values.returnDate,
-      pickupLocation: values.pickupLocation,
-      dropoffLocation: values.dropoffLocation,
-    };
-
-    const { data } = await API.post("/payments/create-order", {
-      amount,
-      bookingData,
-    });
-
-    if (!data?.success || !data?.order?.id) {
-      console.error("Booking creation failed:", data);
-      alert("Booking failed: " + (data?.message || "Unknown error"));
-      return;
-    }
-
-    const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
-
-    const options = {
-      key: RAZORPAY_KEY,
-      amount: data.order.amount,
-      currency: "INR",
-      name: "Car Rental Service",
-      description: "Car Booking Payment",
-      order_id: data.order.id,
-      handler: async function (response) {
-        try {
-          await API.post("/payments/verify-payment", {
-            ...response,
-            bookingId: data.booking._id,
-            method: "upi",
-          });
-          setIsSuccess(true);
-          resetForm();
-        } catch (err) {
-          console.error("Payment verification error:", err);
-          alert("Payment verification failed!");
-        }
-      },
-      prefill: {
-        name: values.fullName,
-        email: values.email,
-        contact: values.phone,
-      },
-      theme: { color: "#04DBC0" },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-
-  } catch (error) {
-    console.error("Error in handlePayment:", error.response?.data || error);
-    alert("Something went wrong while creating the booking or payment.");
-  }
-};
+  };
 
   return (
     <>
-      {isSuccess && <SuccefullyPopUp onClose={() => setIsSuccess(false)} />}
+      {isSuccess && <SuccefullyPopUp status="Payment Successful!" bookStatus="Your car has been booked successfully. 🎉" onClose={() => setIsSuccess(false)} />}
+      {!isSuccess && <SuccefullyPopUp status="Somthing went wrong" bookStatus="Your car has been booked unsuccessfully." onClose={() => setIsSuccess(false)} />}
 
       <div className="border-1 border-black rounded-sm px-4 py-4">
         <Formik
