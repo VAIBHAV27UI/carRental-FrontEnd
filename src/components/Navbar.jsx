@@ -102,13 +102,16 @@ const Navbar = ({ setLoggedIn }) => {
                 >
                   <Link
                     to="my-bookings"
+                    onClick={() => setOpen(false)}
                     className="w-full px-8 py-2 text-white md:text-gray-500 md:hover:bg-gray-100 transition-all duration-300"
                   >
                     My Bookings
                   </Link>
                   <button
                     className="w-full px-8 py-2 text-white md:text-gray-500 md:hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
-                    onClick={handleLogout}
+                    onClick={() => {
+                         handleLogout(),setOpen(false)
+                    }}
                   >
                     Log Out
                   </button>
