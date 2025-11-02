@@ -31,7 +31,7 @@ const Navbar = ({ setLoggedIn }) => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -65,7 +65,7 @@ const Navbar = ({ setLoggedIn }) => {
           </Link>
         ))}
 
-        <div className="grid gap-4 flex-wrap md:hidden">
+        {/* <div className="grid gap-4 flex-wrap md:hidden">
           <Link
                     to="my-bookings"
                     className="w-full px-8 px py-2 flex flex-1  text-white hover:bg-gray-100 transition-all duration-300"
@@ -78,36 +78,36 @@ const Navbar = ({ setLoggedIn }) => {
                   >
                     Log Out
                   </button>
-        </div>
+        </div> */}
 
         <div>
           {currentUser ? (
             <div className="text-white">
-              <div className="relative hidden md:block">
+              <div className="md:relative md:block">
                 <img
                   src="https://picsum.photos/200"
                   alt=""
                   height={40}
                   width={40}
-                  className="border-2 hover:shadow-lg rounded-full border-purple-600 transition-all duration-300 cursor-pointer"
+                  className="hidden md:block border-2 hover:shadow-lg rounded-full border-purple-600 transition-all duration-300 cursor-pointer"
                   onMouseEnter={() => setDropdown(true)}
                   onMouseLeave={() => setDropdown(false)}
                 />
                 <div
-                  className={`md:absolute py-2 right-0 w-48 bg-white mt-1 rounded-md shadow-xl flex-col border ${
-                    dropdown ? "flex" : "hidden"
+                  className={`static gap-4 md:gap-0 flex md:absolute right-0 w-48 md:bg-white rounded-md shadow-xl flex-col md:border ${
+                    dropdown ? "md:flex" : "md:hidden"
                   }`}
                   onMouseEnter={() => setDropdown(true)}
                   onMouseLeave={() => setDropdown(false)}
                 >
                   <Link
                     to="my-bookings"
-                    className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300"
+                    className="w-full px-8 py-2 text-white md:text-gray-500 md:hover:bg-gray-100 transition-all duration-300"
                   >
                     My Bookings
                   </Link>
                   <button
-                    className="px-4 py-2 text-gray-400 hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
+                    className="w-full px-8 py-2 text-white md:text-gray-500 md:hover:bg-gray-100 transition-all duration-300 text-left cursor-pointer"
                     onClick={handleLogout}
                   >
                     Log Out
