@@ -102,7 +102,7 @@ const MyBooking = () => {
                   <div className="flex items-start gap-2 mt-3">
                     <IoLocationSharp className="mt-1" />
                     <div>
-                      <p className="text-gray-500">Pickup Location</p>
+                      <p className="text-gray-500">Drop Location</p>
                       <p>{booking.dropoffLocation}</p>
                     </div>
                   </div>
