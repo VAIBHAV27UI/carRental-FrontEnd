@@ -24,7 +24,9 @@ const MyBooking = () => {
 
   return (
     <>
-      <div className="pt-14 md:min-h-screen">
+
+    <div className="md:min-h-screen">
+      <div className="pt-14">
         <Title
           heading="My Bookings"
           subheading="View and manage all your car bookings"
@@ -119,6 +121,9 @@ const MyBooking = () => {
           ))
         )}
       </div>
+      </div>
+
+      
     </>
   );
 };
