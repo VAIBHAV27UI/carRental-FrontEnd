@@ -121,7 +121,7 @@ const ManageBooking = () => {
       />
 
       <div className="mt-5">
-        <Box sx={{ width: "90%" }}>
+        <Box sx={{ width: "100%" }}>
           <DataGrid
             rows={bookings}
             columns={columns}
