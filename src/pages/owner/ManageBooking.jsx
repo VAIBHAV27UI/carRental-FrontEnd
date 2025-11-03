@@ -29,7 +29,7 @@ const ManageBooking = () => {
   const columns = [
     {
       field: "fullName",
-      headerName: "User Name",
+      headerName: "Customer Name",
       width:200,
       renderCell : (params) => <div>{params.row.fullName}</div>
     },
