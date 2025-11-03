@@ -24,7 +24,7 @@ const MyBooking = () => {
 
   return (
     <>
-      <div className="pt-14">
+      <div className="pt-14 md:min-h-screen">
         <Title
           heading="My Bookings"
           subheading="View and manage all your car bookings"
