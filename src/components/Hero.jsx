@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Hero = () => {
 const { cars, loading, error } = useSelector((state) => state.cars);
-console.log(cars)
 
   const carsOption = [
     "BMW",

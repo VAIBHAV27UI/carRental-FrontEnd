@@ -4,7 +4,7 @@ import Title from "../../components/owner/Title";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBookingsData } from "../../redux/carThunk";
-import axios from "axios";
+import API from "../../utils/owner/axios";
 
 const ManageBooking = () => {
   const dispatch = useDispatch();
@@ -13,12 +13,13 @@ const ManageBooking = () => {
   const currency = import.meta.env.VITE_CURRENCY;
 
   useEffect(() => {
+    console.log(bookings)
     dispatch(getAllBookingsData());
   }, [dispatch]);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axios.put(`http://localhost:8000/api/booking/${id}/status`, { status: newStatus });
+      await API.put(`/booking/${id}/status`, { status: newStatus });
       dispatch(getAllBookingsData()); // Refresh bookings after update
     } catch (err) {
       console.error("Failed to update status:", err.message);
@@ -26,6 +27,12 @@ const ManageBooking = () => {
   };
 
   const columns = [
+    {
+      field: "fullName",
+      headerName: "User Name",
+      width:200,
+      renderCell : (params) => <div>{params.row.fullName}</div>
+    },
     {
       field: "vehicle",
       headerName: "Car",

@@ -52,9 +52,9 @@ const MyBooking = () => {
                 <p className="font-bold">
                   {booking.vehicle?.make} {booking.vehicle?.model}
                 </p>
-                <p>
+                {/* <p>
                   {booking.vehicle?.year} • {booking.pickupLocation}
-                </p>
+                </p> */}
               </div>
 
               {/* Booking info */}
@@ -93,6 +93,14 @@ const MyBooking = () => {
                   <div>
                     <p className="text-gray-500">Pickup Location</p>
                     <p>{booking.pickupLocation}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2 mt-3">
+                  <IoLocationSharp className="mt-1" />
+                  <div>
+                    <p className="text-gray-500">Pickup Location</p>
+                    <p>{booking.dropoffLocation}</p>
                   </div>
                 </div>
               </div>

@@ -20,7 +20,6 @@ const Cars = () => {
   const { cars, loading, error } = useSelector((state) => state.cars);
 
   useEffect(() => {
-    console.log(cars);
     dispatch(fetchCars());
   }, [dispatch]);
 

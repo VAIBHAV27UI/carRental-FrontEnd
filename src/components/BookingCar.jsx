@@ -7,7 +7,7 @@ import SuccefullyPopUp from "./SuccefullyPopUp";
 const BookingSchema = Yup.object().shape({
   fullName: Yup.string()
     .min(2, "Too Short")
-    .max(20, "Too Long")
+    .max(100, "Too Long")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   phone: Yup.string().required("Required"),
@@ -38,12 +38,15 @@ const BookingCar = ({ id, pricePerDay }) => {
       const bookingData = {
         vehicle: id,
         user: user.id,
+        fullName: values.fullName,
         totalPrice: amount / 100,
         pickupDate: values.pickupDate,
         returnDate: values.returnDate,
         pickupLocation: values.pickupLocation,
         dropoffLocation: values.dropoffLocation,
       };
+
+      console.log(bookingData)
 
       const { data } = await API.post("/payments/create-order", {
         amount,
@@ -97,7 +100,13 @@ const BookingCar = ({ id, pricePerDay }) => {
 
   return (
     <>
-      {isSuccess && <SuccefullyPopUp status="Payment Successful!" bookStatus="Your car has been booked successfully. 🎉" onClose={() => setIsSuccess(false)} />}
+      {isSuccess && (
+        <SuccefullyPopUp
+          status="Payment Successful!"
+          bookStatus="Your car has been booked successfully. 🎉"
+          onClose={() => setIsSuccess(false)}
+        />
+      )}
 
       <div className="border-1 border-black rounded-sm px-4 py-4">
         <Formik

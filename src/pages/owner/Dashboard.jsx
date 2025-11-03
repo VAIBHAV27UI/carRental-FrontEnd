@@ -32,14 +32,12 @@ const Dashboard = () => {
   );
 
   const totalRevenue = bookings?.reduce((sum, b) => sum + b.totalPrice, 0);
-  console.log("Total", totalRevenue);
 
   useEffect(() => {
     dispatch(fetchCars(cars));
     dispatch(getAllBookingsData(bookings));
   }, [dispatch]);
 
-  console.log("All Booking", bookings);
 
   const dashboardCard = [
     { title: "Total Cars", value: cars.length, icon: <FaCarSide /> },

@@ -20,7 +20,7 @@ const Sidebar = () => {
     <>
       <div className="relative min-h-screen md:flex flex-col items-center pt-8 max-w-13 md:max-w-60 w-full border-r border-gray-500 text-sm bg-black/90">
         
-        <p className="mt-2 text-base max-md:hidden text-white border-b border-b-gray-500 pb-5">Welsome, {owner?.name}</p>
+        <p className="mt-2 text-base max-md:hidden text-white border-b border-b-gray-500 pb-5">Welcome, {owner?.name}</p>
 
         <div className="w-full">
           {ownerMenu.map((link, index) => (

@@ -35,7 +35,7 @@ export const getAllBookingsData = createAsyncThunk(
       return res.data.data; 
     } catch (error) {
       console.error("Error fetching bookings:", error.message);
-      throw error; // this will trigger the rejected case in extraReducers
+      throw error; 
     }
   }
 );
