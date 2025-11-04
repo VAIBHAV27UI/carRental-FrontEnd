@@ -38,6 +38,14 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("adminToken");
+
+    if (token) {
+      setLoggedIn(true);
+    }
+  }, []);
+
   return (
     <>
       {!owner && <Navbar setLoggedIn={setLoggedIn} />}
@@ -73,12 +81,13 @@ function App() {
           element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
         >
           {owner && (
-            <Route path="login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+            <Route
+              path="login"
+              element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+            />
           )}
 
-          <Route
-            element={<AdminRoute />} 
-          >
+          <Route element={<AdminRoute />}>
             <Route index element={<Dashboard />} />
             <Route path="add-car" element={<AddCar />} />
             <Route path="manage-booking" element={<ManageBooking />} />
