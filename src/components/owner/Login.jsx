@@ -21,14 +21,10 @@ const Login = ({ setLoggedIn }) => {
       const token = res.data.token;
 
       if (rememberMe) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("adminToken", token);
       } else {
-        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("adminToken", token);
       }
-
-      // localStorage.setItem("admin", JSON.stringify(res.data.admin));
-
-      // Redirect after login
       setLoggedIn(true);
       navigate("/owner");
     } else {

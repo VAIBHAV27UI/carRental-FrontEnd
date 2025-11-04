@@ -6,8 +6,8 @@ const NavbarOwner = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("adminToken");
+    sessionStorage.removeItem("adminToken");
     setLoggedIn(false);
     navigate("/owner/login");
   };

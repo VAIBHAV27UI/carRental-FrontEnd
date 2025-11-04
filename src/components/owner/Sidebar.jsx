@@ -11,7 +11,7 @@ const Sidebar = () => {
     { name: "Add Car", path: "/owner/add-car" },
     { name: "Manage Booking", path: "/owner/manage-booking" },
     // { name: "Manage Car", path: "/owner/manage-car" },
-    { name: "Add Blogs", path: "/owner/add-blogs" },
+    // { name: "Add Blogs", path: "/owner/add-blogs" },
   ];
 
 

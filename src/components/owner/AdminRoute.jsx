@@ -1,11 +1,14 @@
-// AdminRoute.jsx
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom"
 
-const AdminRoute = ({ loggedIn }) => {
-  const token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");
+const AdminRoute = () => {
+    const token = sessionStorage.getItem("adminToken")
 
-  return token && loggedIn ? <Outlet /> : <Navigate to="/owner/login" />;
-};
+      if (!token) {
+    return <Navigate to="/owner/login" replace />;
+  }
 
-export default AdminRoute;
+
+  return <Outlet />;
+}
+
+export default AdminRoute

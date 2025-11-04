@@ -12,7 +12,6 @@ import ManageBooking from "./pages/owner/ManageBooking";
 import Dashboard from "./pages/owner/Dashboard";
 import AddBlogs from "./pages/owner/AddBlogs";
 import Layout from "./pages/owner/Layout";
-import AdminRoute from "./components/owner/AdminRoute";
 import Login from "./components/owner/Login";
 import UserLogin from "./components/UserLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -23,10 +22,10 @@ import ContactUs from "./pages/ContactUs";
 import PageNotFound from "./pages/PageNotFound";
 import BookingCar from "./components/BookingCar";
 import AOS from "aos";
+import AdminRoute from "./components/owner/AdminRoute";
 
 function App() {
-
-    useEffect(() => {
+  useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in ms
       offset: 100, // Distance from top to trigger animation
@@ -34,7 +33,6 @@ function App() {
       once: true, // Animation only once
     });
   }, []);
-
 
   const owner = useLocation().pathname.startsWith("/owner");
 
@@ -75,14 +73,16 @@ function App() {
           element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
         >
           {owner && (
-            <Route path="login" element={<Login setLoggedIn={setLoggedIn} />} />
+            <Route path="login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           )}
 
-          <Route element={<AdminRoute loggedIn={loggedIn} />}>
+          <Route
+            element={<AdminRoute />} 
+          >
             <Route index element={<Dashboard />} />
             <Route path="add-car" element={<AddCar />} />
             <Route path="manage-booking" element={<ManageBooking />} />
-            <Route path="add-blogs" element={<AddBlogs />} />
+            {/* <Route path="add-blogs" element={<AddBlogs />} /> */}
           </Route>
         </Route>
 
